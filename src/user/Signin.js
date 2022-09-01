@@ -1,8 +1,9 @@
 import React from 'react';
+import Layout from '../core/layout';
 function Signin(){
     return (
         <>
-        <h2>this is Sign page!</h2>
+          <Layout title="Signin" descriptions='Node React E-commerce App'></Layout>
         </>
     )
 }

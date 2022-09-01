@@ -1,9 +1,10 @@
 import React from 'react';
+import Layout from '../core/layout';
 function Home(){
     return (
         <>
-        <h2>this is Home page!</h2>
-        </>
+        <Layout title="Home Page" descriptions='Node React E-commerce App'></Layout>
+         </>
     )
 }
 export default Home
