@@ -1,7 +1,10 @@
 import React from 'react';
 const Signup=()=>{
-    <>
-    <h2>Signup</h2>
-    </>
+    return(
+        <>
+        <h2>Signup</h2>
+        </>
+    )
+   
 }
 export default Signup
