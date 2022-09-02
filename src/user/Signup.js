@@ -1,10 +1,11 @@
 import React,{useState} from 'react';
 import Layout from '../core/layout';
+import APICalled from '../API/SignupAPI'
 const Signup=()=>{
     const [value,setValue]=useState({
         fname:"",
         lastname:"",
-        // name:fname+""+lastname,
+        
         email:"",
         gender:"",
         city:"",
@@ -13,9 +14,35 @@ const Signup=()=>{
     const handleChange=name=>event=>{
         setValue({...value,error:false,[name]:event.target.value})
     }
+    // const {name,email,password}=value;
+    // const showErrorMessage=()=>{
+    //     return(
+    //         <>
+    //         <div className="alert alert-danger" style={{display:error?"":"none"}}>
+    //         {error}
+    //         </div>
+    //         </>
+    //     )
+    // }
+
+    // const showSuccessMessage=()=>{
+    //     return(
+    //         <>
+    //         <div className="alert alert-info" style={{display:success?"":"none"}}>
+    //         New account is created. Please signin
+    //         </div>
+    //         </>
+    //     )
+    // }
+   
+    const onSubmitForm=(e)=>{
+        e.preventDefault();
+        APICalled(value)
+
+    }
     const SignupForm=()=>{
         return(
-            <form>
+            <form onSubmit={onSubmitForm}>
             <div className="row">         
 
               <div className="col">
@@ -26,6 +53,10 @@ const Signup=()=>{
               </div>
               <div className="form-group mt-3">
                     <input type="email" className="form-control" placeholder="Enter email" onChange={handleChange("email")}/>
+                </div>
+
+                <div className="form-group mt-3">
+                    <input type="password" className="form-control" placeholder="Enter password" onChange={handleChange("password")}/>
                 </div>
               
                 <div className="col">
@@ -47,6 +78,7 @@ const Signup=()=>{
                     <option value="3">Mumbai</option>
                 </select>
               </div>
+               
             </div>
             <button className='btn btn-primary mt-2'>Submit</button>
           </form>
