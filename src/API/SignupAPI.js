@@ -1,9 +1,9 @@
 import axios from "axios"
 import Swal from 'sweetalert2'
-
-// require('dotenv').config()
+import { Navigate } from "react-router-dom"
+ // require('dotenv').config()
 const SignupAPI=async(myForm)=>{
-
+ 
     Swal.fire({
         title: 'Are you sure? Save',          
         icon: 'warning',
@@ -26,6 +26,7 @@ const SignupAPI=async(myForm)=>{
       })
  
 }
+
+
  
- 
-export default SignupAPI
+export default [SignupAPI]
