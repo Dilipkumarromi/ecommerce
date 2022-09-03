@@ -2,6 +2,7 @@ import React from 'react';
 import Layout from '../core/layout';
 import {useState} from 'react'
 import axios from 'axios';
+import Swal from 'sweetalert2'
 function Signin(){
   const [value,setValue]=useState({   
     email:"",
@@ -12,7 +13,33 @@ const handleChange=name=>event=>{
 }
 const Signin=async(myForm)=>{
   const p=  axios.post(`http://localhost:80/student/login`,myForm).then(result=>{
-    console.log(result.data)
+    // console.log(result.data.result.isActive)
+    if(result.data.status==true)
+    {
+      // if(result.data.result.isActive==false)
+      // {
+      //   Swal.fire(
+      //     'Oops!',
+      //     `Not verify your account!`,
+      //     'error'
+      //   )
+      // }
+      
+      authenticate(result.data.result,()=>{
+        console.log(result.data.token)
+      })
+    }
+    else{
+      Swal.fire(
+        'Oops!',
+        `${result.data.message}`,
+        'error'
+      )
+      console.log(result.data.message)
+
+    }
+    // if(result.data.)
+   
   })
   // if(p){
   //   console.log('login',p)
@@ -21,6 +48,30 @@ const Signin=async(myForm)=>{
   //   console.log('login failed',p);
   // }
 }
+//jwt store token
+const authenticate=(data,next)=>{
+  if(typeof window!=='undefined'){
+    localStorage.setItem('jwt',JSON.stringify(data));
+    next();
+  }
+}
+
+//isValid Person
+const isAuthenticated =()=>{
+  if(typeof window =='undefined'){
+    return false;
+  }
+  if(localStorage.getItem('jwt'))
+  {
+    return JSON.parse(localStorage.getItem('jwt'));
+  }
+  else{
+    return false;
+
+  }
+}
+
+
  const onLogin=(e)=>{
    e.preventDefault()
    Signin(value)

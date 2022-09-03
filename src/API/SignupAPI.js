@@ -1,6 +1,8 @@
+import React from 'react';
 import axios from "axios"
 import Swal from 'sweetalert2'
 import { Navigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
  // require('dotenv').config()
 const SignupAPI=async(myForm)=>{
  
@@ -27,6 +29,28 @@ const SignupAPI=async(myForm)=>{
  
 }
 
+//isValid Person
+export const isAuthenticated =()=>{
+  if(typeof window =='undefined'){
+    return false;
+  }
+  if(localStorage.getItem('jwt'))
+  {
+    return JSON.parse(localStorage.getItem('jwt'));
+  }
+  else{
+    return false;
+
+  }
+}
+const SignOut=next=>{
+  const navigate = useNavigate();
+  if(typeof window =='undefined'){
+    localStorage.removeItem('jwt');
+    next();
+    return navigate("/path/to/push");
+  }
+}
 
  
-export default [SignupAPI]
+export default [SignupAPI,isAuthenticated,SignOut]

@@ -1,5 +1,7 @@
 import React from "react";
 import {Link, withRouter} from 'react-router-dom'
+// import SignupAPI from "../API/SignupAPI";
+import {isAuthenticated} from '../API/SignupAPI'  
 
 const isActive=(history,path)=>{
     if(history?.location.pathname==path){
@@ -19,18 +21,28 @@ const Menu=({history})=>{
                 <Link className="nav-link " style={isActive(history,"/")} to="/">Home
                 </Link>
             </li>
-            <li className="nav-item">
-                <Link className="nav-link" style={isActive(history,"/")} to="/Signin">Signin
+           {!isAuthenticated()&&(
+            <div>
+                 <li className="nav-item">
+                <Link className="nav-link" style={isActive(history,"/Signin")} to="/Signin">Signin
                 </Link>
             </li>
             <li className="nav-item">
                 <Link className="nav-link" style={isActive(history,"/Signup")} to="/Signup">Signup
                 </Link>
             </li>
+            
+            </div>
+           )}
+           {isAuthenticated() &&(
+            <div>
             <li className="nav-item">
-                <Link className="nav-link " to="/Home">Home
+                <Link className="nav-link "  style={isActive(history,"/Logout")}  to="/Logout">SignOut
                 </Link>
             </li>
+            </div>
+           )}
+           
         </ul>
         </>
     )
